@@ -1,0 +1,102 @@
+dataset:
+  data_dir_name: handover/cfd_simulation/qg_model/hr_and_lr_pv
+  train_valid_test_ratios: [0.7, 0.2, 0.1]
+  max_start_time_index: 792
+  split_seed: 42
+  beta_dist_alpha: 2.0
+  beta_dist_beta: 2.0
+  max_ensemble_number: 20
+  num_searched_lr_states: 100
+  nx_hr: 128
+  ny_hr: 65
+  nz_hr: 16
+  obs_grid_interval_x: 8
+  obs_grid_interval_y: 8
+  obs_noise_std: 0.022
+  pv_min: -2.88
+  pv_max: 2.92
+  missing_value: 0.0
+  data_scaling: minus_one_one
+  diffusion_missing_value: -1.1
+  observation_fill_mode: bicubic_horizontal
+  lr_and_obs_time_interval: 4
+  is_future_obs_missing: true
+  fixed_obs_mask_index: null
+  use_mixup: true
+  use_observation: true
+  use_ground_truth_clipping: null
+dataloader:
+  num_workers: 4
+diffusion:
+  num_train_timesteps: 1000
+  beta_start: 0.0001
+  beta_end: 0.02
+  loss_type: l1
+model:
+  model_name: DiffSRDAUNet3D
+  input_channels: 15
+  out_channels: 9
+  base_width: 32
+  channel_multipliers: [1, 2, 4, 8, 8]
+  num_res_blocks: 3
+  norm_groups: 32
+  dropout: 0.5
+  attention_heads: 1
+  activation_checkpointing: true
+  hr_z_size: 16
+  hr_y_size: 64
+  hr_x_size: 128
+  max_parameter_count: 100000000
+train:
+  num_epochs: 400
+  early_stopping_patience: 20
+  samples_per_epoch: 3600
+  valid_samples_per_epoch: 90
+  microbatch_per_gpu: 1
+  gradient_accumulation_steps: 3
+  amp: false
+  lr: 0.0001
+  weight_decay: 0.0
+  gradient_clip_norm: 1.0
+  seed: 42
+  use_recon_loss: true
+  checkpoint_selection: reconstruction_mae
+  reconstruction_selection_metric: sample_l1
+  validation_panel_interval: 5
+  validation_panel_size: 8
+  validation_panel_ensemble: 4
+  validation_panel_steps: 20
+  validation_panel_eta: 1.0
+  validation_panel_chunk: 1
+eval:
+  batch_size: 1
+  ensemble_size: 8
+  num_steps: 20
+  eta: 1.0
+  member_chunk_size: 1
+  parent_chunk_size: 1
+  abort_normalized_abs_max: 5.0
+  abort_maer_growth_factor: 10.0
+  seed: 42
+  save_batch_indices: [0, 50, 100]
+  feedback: ensemble_mean
+  observation_scenario: fixed_clean
+  obs_mask_index: 0
+  obs_noise_std: 0.022
+  random_seed_multiplier: 555
+  save_member_analysis_indices: [0, 49, 99, 149, 198]
+anchor:
+  model_name: UNetMaxVitVer01
+  config_path: python/configs/four_dim_srda/handover/perform_4D_SRDA/UNetMaxVitVer01/bea2_bed2_dspe360_nsls100_ogx08_ogy08_n3drb3_nmb6_bias0_bs12_lr1e-04.yml
+  weights_path: data/four_dim_srda/handover/training/UNetMaxVitVer01/bea2_bed2_dspe360_nsls100_ogx08_ogy08_n3drb3_nmb6_bias0_bs12_lr1e-04/best_weights.pth
+cfd:
+  config_path: python/configs/four_dim_srda/handover/cfd_simulation/qg_model/gpu_evaluation_config.yml
+preflight:
+  batch_size: 1
+overfit:
+  steps: 1000
+  lr: 0.0003
+  max_final_ratio: 0.10
+output:
+  work_root: work/experiments/050_diffusion_srda_qg
+  run_name: DiffSRDAUNet3D_b32_fp32_filledobs

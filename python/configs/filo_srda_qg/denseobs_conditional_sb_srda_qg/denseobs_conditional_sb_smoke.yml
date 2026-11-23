@@ -1,0 +1,19 @@
+_base_: denseobs_conditional_sb_p2_b32.yml
+train:
+  num_epochs: 6
+  early_stopping_min_epoch: 99
+  samples_per_epoch: 64
+  valid_samples_per_epoch: 32
+  checkpoint_interval: 3
+validation_panel:
+  interval: 3
+  convergence_interval: 6
+  starts: [0]
+  ensemble_size: 2
+  member_chunk_size: 1
+  brownian_base_steps: 100
+overfit:
+  steps: 40
+  max_final_ratio: 0.75
+output:
+  run_name: DenseObsConditionalSBUNet3D_Scratch_p2_smoke

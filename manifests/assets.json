@@ -1,0 +1,48 @@
+{
+  "distribution": "Pending author decision. Paths refer to intended inputs relative to the companion checkout. No public asset URLs are assigned.",
+  "checkpoint_assets": {
+    "bridge_d": {
+      "epoch": 2000,
+      "weights": "ema_state_dict from the full checkpoint",
+      "path": "work/experiments/073a_denseobs_conditional_sb_srda_qg/checkpoints/DenseObsConditionalSBUNet3D_Scratch_quad_p2_eps02582_ogx08_ogy08_mixup_b32_ema999/checkpoint_epoch2000.pth",
+      "historical_sha256": "b190890ad223b209e9eefa98574cb21b71c2b3de5eeca56bd666d98cd555e731"
+    },
+    "bridge_i": {
+      "epoch": 1200,
+      "weights": "ema_state_dict from the full checkpoint",
+      "path": "work/experiments/072_conditional_sb_srda_qg/checkpoints/ConditionalSBUNet3D_Scratch_quad_p2_eps02582_ogx08_ogy08_mixup_b32_ema999/checkpoint_epoch1200.pth"
+    },
+    "sr_letkf": {
+      "epoch": 900,
+      "weights": "ema_state_dict from the full checkpoint",
+      "path": "work/experiments/071b_sb_prior_retrain_qg/checkpoints/SBPriorUNet3D_quad_p2_eps02582_continuous_b32_ema999_2gpu/checkpoint_epoch0900.pth"
+    },
+    "four_dim_srda": {
+      "reported_best_epoch": 394,
+      "path": "data/four_dim_srda/handover/training/UNetMaxVitVer01/bea2_bed2_dspe360_nsls100_ogx08_ogy08_n3drb3_nmb6_bias0_bs12_lr1e-04/best_weights.pth"
+    },
+    "appendix_b": {
+      "epoch": 525,
+      "weights": "raw p1 and p2",
+      "availability": "Saved validation panels recorded. Availability of corresponding loadable checkpoint weights is unconfirmed."
+    },
+    "appendix_d": {
+      "unet_bridge_panel_epoch": 125,
+      "unet_bridge_panel_weights": "raw",
+      "maxvit_budget_epoch": 15,
+      "maxvit_budget_checkpoint": "work/experiments/050_diffusion_srda_qg/checkpoints/DiffusionUNetMaxViT_w144_fp32_reconsel/best_reconstruction_weights.pth"
+    }
+  },
+  "data_assets": {
+    "training_corpus": "data/four_dim_srda/handover/cfd_simulation/qg_model/hr_and_lr_pv",
+    "narrow_jet_truth": "data/four_dim_srda/handover/cfd_simulation/qg_model/uhr_pv_narrow_jet",
+    "canonical_results_and_observations": "python/results/four_dim_srda/handover/srda/UNetMaxVitVer01/use_narrow_jet/bea2_bed2_dspe360_nsls100_ogx08_ogy08_n3drb3_nmb6_bias0_bs12_lr1e-04",
+    "instance_pattern": "UHR_seed_09990.npz through UHR_seed_09999.npz",
+    "ensemble_fields": "Optional external archive of original evaluated means, selected members and per-trajectory metrics for regenerating figures and verifying cycling results."
+  },
+  "timing_inputs": {
+    "seed": 9991,
+    "observation_float32_nanfilled_sha256": "a1911231b436c16eaf5220ca233ff386d364d1bdaaef3649fab66a80772490ed",
+    "observation_hash_convention": "Float32 contiguous bytes after replacing NaN with 1e10"
+  }
+}

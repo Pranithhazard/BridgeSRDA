@@ -1,0 +1,8 @@
+_base_: sb_prior_retrain_p2_b32.yml
+# Two-GPU variant of the p=2 fallback.  The stratified time contract requires
+# global batch = interior_strata + 2 = 32.  With two GPUs, accumulation must be
+# 16 rather than the four-GPU production value of 8.
+train:
+  gradient_accumulation_steps: 16
+output:
+  run_name: SBPriorUNet3D_quad_p2_eps02582_continuous_b32_ema999_2gpu

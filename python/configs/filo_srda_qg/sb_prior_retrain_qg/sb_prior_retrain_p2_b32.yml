@@ -1,0 +1,12 @@
+_base_: sb_prior_retrain_b32.yml
+# This file is resolved by the deployment launcher by merging it over the
+# production p=1 config.  It is predeclared but must not be launched unless the
+# p=1 run produces no clean/converged checkpoint.
+bridge:
+  epsilon: 0.2581988897471611
+  noise_exponent: 2
+  interior_strata: 30
+train:
+  ema_decay: 0.999
+output:
+  run_name: SBPriorUNet3D_quad_p2_eps02582_continuous_b32_ema999
